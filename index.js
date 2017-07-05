@@ -44,6 +44,8 @@ var gulpCSSHashes = function(options) {
     function hashifyUrl(match) {
         return when.promise(function(resolve, reject) {
             var url = match[2].split(' ').join(''),
+                urlNoHash = url.split("?")[0].split("#")[0],
+                urlHash = url.split("#")[1],
                 result = {
                     originalUrl: match[1],
                 };
@@ -55,7 +57,7 @@ var gulpCSSHashes = function(options) {
             }
 
             var hash = crypto.createHash('md5');
-            var fileStream = fs.createReadStream(assetPath(url));
+            var fileStream = fs.createReadStream(assetPath(urlNoHash));
 
             fileStream.on('error', function(e) {
                 if (e.code === 'ENOENT') {
@@ -76,7 +78,7 @@ var gulpCSSHashes = function(options) {
             });
 
             fileStream.on('end', function() {
-                var hashedUrl = 'url(\'' + url + '?v=' + hash.digest('hex') + '\')';
+                var hashedUrl = 'url(\'' + urlNoHash + '?v=' + hash.digest('hex') + (urlHash?("#" + urlHash):"") + '\')';
                 result.hashedUrl = cache[url] = hashedUrl;
                 resolve(result);
             });
@@ -96,9 +98,8 @@ var gulpCSSHashes = function(options) {
 
         while ((match = urlPattern.exec(css)) !== null) {
             var url = match[2].split(' ').join('');
-            var extension = url.substr(url.lastIndexOf('.') + 1).toLowerCase();
-
-            if (url.indexOf('data:') !== 0 && url.indexOf('#') !== 0 && hashableExtensions.indexOf(extension) !== -1) {
+            var extension = url.substr(url.lastIndexOf('.') + 1).toLowerCase().split("?")[0].split("#")[0];
+            if (url.indexOf('data:') !== 0 && hashableExtensions.indexOf(extension) !== -1) {
                 hashifiers.push(hashifyUrl(match));
             }
         }
