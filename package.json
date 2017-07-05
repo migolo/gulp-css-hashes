@@ -20,7 +20,7 @@
     "url": "https://github.com/tumblr/gulp-css-hashes/issues"
   },
   "homepage": "https://github.com/tumblr/gulp-css-hashes#readme",
-  "devDependencies": {
+  "dependencies": {
     "chalk": "^1.1.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.0.1",
