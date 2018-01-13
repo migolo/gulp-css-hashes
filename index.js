@@ -7,7 +7,7 @@ var _ = require('lodash');
 var through = require('through2');
 var chalk = require('chalk');
 var when = require('when');
-var PluginError = require('gulp-util').PluginError;
+var PluginError = require('plugin-error');
 
 /**
  * gulp-css-hashes is a gulp plugin that parses a stylesheet and appends checksums for

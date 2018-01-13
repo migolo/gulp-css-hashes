@@ -1,6 +1,6 @@
 {
   "name": "gulp-css-hashes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds checksums to asset paths in CSS",
   "main": "index.js",
   "scripts": {
@@ -22,8 +22,8 @@
   "homepage": "https://github.com/tumblr/gulp-css-hashes#readme",
   "dependencies": {
     "chalk": "^1.1.1",
-    "gulp-util": "^3.0.7",
     "lodash": "^4.0.1",
+    "plugin-error": "^0.1.2",
     "through2": "^2.0.0",
     "when": "^3.7.7"
   }
